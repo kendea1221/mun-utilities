@@ -356,6 +356,7 @@ export default function ConferencePage() {
                     <option value="close_debate">{MOTION_TYPE_LABELS.close_debate.ja}</option>
                     <option value="table_topic">{MOTION_TYPE_LABELS.table_topic.ja}</option>
                     <option value="adjourn_meeting">{MOTION_TYPE_LABELS.adjourn_meeting.ja}</option>
+                    <option value="withdraw">{MOTION_TYPE_LABELS.withdraw.ja}</option>
                     <option value="other">{MOTION_TYPE_LABELS.other.ja}</option>
                   </select>
                 </div>
