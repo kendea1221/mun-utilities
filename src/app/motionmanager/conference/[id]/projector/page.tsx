@@ -114,7 +114,7 @@ export default function ProjectorPage() {
 
           // Check if we just crossed a speaking time boundary
           if (elapsed > 0 && elapsed % speakingTime === 0) {
-            // Play beep sound
+            // Play interval beep sound - clear, short "tick"
             const audioContext = new (window.AudioContext ||
               (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext)();
             const oscillator = audioContext.createOscillator();
@@ -123,35 +123,45 @@ export default function ProjectorPage() {
             oscillator.connect(gainNode);
             gainNode.connect(audioContext.destination);
 
-            oscillator.frequency.value = 800;
-            oscillator.type = 'sine';
+            oscillator.frequency.value = 1200; // Higher frequency for clearer "tick"
+            oscillator.type = 'square'; // Square wave for more distinct sound
 
-            gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
-            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
+            gainNode.gain.setValueAtTime(0.4, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.08);
 
             oscillator.start(audioContext.currentTime);
-            oscillator.stop(audioContext.currentTime + 0.1);
+            oscillator.stop(audioContext.currentTime + 0.08);
           }
         }
 
         if (newRemaining <= 0) {
-          // Timer ended - play final sound
+          // Timer ended - play distinctive three-tone final sound
           const audioContext = new (window.AudioContext ||
             (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext)();
-          const oscillator = audioContext.createOscillator();
-          const gainNode = audioContext.createGain();
+          
+          // Three ascending tones for clear end signal
+          const playTone = (frequency: number, startTime: number, duration: number) => {
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
 
-          oscillator.connect(gainNode);
-          gainNode.connect(audioContext.destination);
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
 
-          oscillator.frequency.value = 600;
-          oscillator.type = 'sine';
+            oscillator.frequency.value = frequency;
+            oscillator.type = 'sine';
 
-          gainNode.gain.setValueAtTime(0.5, audioContext.currentTime);
-          gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
+            gainNode.gain.setValueAtTime(0.4, startTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, startTime + duration);
 
-          oscillator.start(audioContext.currentTime);
-          oscillator.stop(audioContext.currentTime + 0.5);
+            oscillator.start(startTime);
+            oscillator.stop(startTime + duration);
+          };
+
+          // Play three ascending tones: lower, middle, higher
+          const now = audioContext.currentTime;
+          playTone(600, now, 0.15);           // First tone
+          playTone(800, now + 0.15, 0.15);    // Second tone
+          playTone(1000, now + 0.3, 0.3);     // Final tone (longer)
 
           // Clear timer
           localStorage.removeItem('mun-timer');
