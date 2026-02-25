@@ -57,7 +57,7 @@ export const MOTION_TYPE_LABELS: Record<MotionType, { en: string; ja: string; sh
   close_debate: { en: 'Close Debate', ja: '討議終了', short: 'CD' },
   table_topic: { en: 'Table the Topic', ja: '議題の棚上げ', short: 'TT' },
   adjourn_meeting: { en: 'Adjourn the Meeting', ja: '会議休憩', short: 'ADJ' },
-  withdraw: { en: 'Withdraw', ja: 'ウィズドロー', short: 'WD' },
+  withdraw: { en: 'Withdraw', ja: 'WD', short: 'WD' },
   other: { en: 'Other', ja: 'その他', short: 'O' },
 };
 

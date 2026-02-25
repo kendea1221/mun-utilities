@@ -283,10 +283,10 @@ export default function ProjectorPage() {
                         <span className="font-bold text-green-700">
                           {MOTION_TYPE_LABELS[motion.type].short}
                         </span>
-                        {motion.duration && (
+                        {motion.duration && motion.type !== 'withdraw' && (
                           <span className="font-bold text-slate-700">{motion.duration}m</span>
                         )}
-                        {motion.speakingTime && (
+                        {motion.speakingTime && motion.type !== 'withdraw' && (
                           <span className="text-lg text-slate-600">({motion.speakingTime}s)</span>
                         )}
                       </div>
@@ -336,10 +336,10 @@ export default function ProjectorPage() {
                         <span className="font-bold text-slate-900">
                           {MOTION_TYPE_LABELS[motion.type].short}
                         </span>
-                        {motion.duration && (
+                        {motion.duration && motion.type !== 'withdraw' && (
                           <span className="font-bold text-slate-700">{motion.duration}m</span>
                         )}
-                        {motion.speakingTime && (
+                        {motion.speakingTime && motion.type !== 'withdraw' && (
                           <span className="text-lg text-slate-600">({motion.speakingTime}s)</span>
                         )}
                       </div>
@@ -383,7 +383,7 @@ export default function ProjectorPage() {
                         <span className="font-bold text-slate-600">
                           {MOTION_TYPE_LABELS[motion.type].short}
                         </span>
-                        {motion.duration && (
+                        {motion.duration && motion.type !== 'withdraw' && (
                           <span className="text-slate-500">{motion.duration}m</span>
                         )}
                       </div>
