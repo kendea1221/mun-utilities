@@ -385,6 +385,7 @@ export default function ConferencePage() {
                   />
                 </div>
 
+                {motionType !== 'withdraw' && (
                 <div className="grid gap-4 sm:grid-cols-2">
                   <div>
                     <label className="mb-1.5 block text-xs font-medium text-slate-600">
@@ -412,6 +413,7 @@ export default function ConferencePage() {
                     />
                   </div>
                 </div>
+                )}
 
                 <button
                   onClick={handleAddMotion}
@@ -457,7 +459,7 @@ export default function ConferencePage() {
                           {motion.description && (
                             <p className="mt-2 text-xs text-slate-500">{motion.description}</p>
                           )}
-                          {(motion.duration || motion.speakingTime) && (
+                          {(motion.duration || motion.speakingTime) && motion.type !== 'withdraw' && (
                             <div className="mt-2 flex gap-3 text-xs text-slate-500">
                               {motion.duration && <span>{motion.duration}分</span>}
                               {motion.speakingTime && <span>{motion.speakingTime}秒</span>}
@@ -754,12 +756,12 @@ export default function ConferencePage() {
                                 <span className="font-bold text-green-700">
                                   {MOTION_TYPE_LABELS[motion.type].short}
                                 </span>
-                                {motion.duration && (
+                                {motion.duration && motion.type !== 'withdraw' && (
                                   <span className="font-semibold text-slate-700">
                                     {motion.duration}m
                                   </span>
                                 )}
-                                {motion.speakingTime && (
+                                {motion.speakingTime && motion.type !== 'withdraw' && (
                                   <span className="text-sm text-slate-600">
                                     ({motion.speakingTime}s)
                                   </span>
@@ -804,12 +806,12 @@ export default function ConferencePage() {
                                 <span className="font-bold text-slate-900">
                                   {MOTION_TYPE_LABELS[motion.type].short}
                                 </span>
-                                {motion.duration && (
+                                {motion.duration && motion.type !== 'withdraw' && (
                                   <span className="font-semibold text-slate-700">
                                     {motion.duration}m
                                   </span>
                                 )}
-                                {motion.speakingTime && (
+                                {motion.speakingTime && motion.type !== 'withdraw' && (
                                   <span className="text-sm text-slate-600">
                                     ({motion.speakingTime}s)
                                   </span>
@@ -851,7 +853,7 @@ export default function ConferencePage() {
                                 <span className="font-bold text-slate-600">
                                   {MOTION_TYPE_LABELS[motion.type].short}
                                 </span>
-                                {motion.duration && (
+                                {motion.duration && motion.type !== 'withdraw' && (
                                   <span className="text-slate-500">{motion.duration}m</span>
                                 )}
                               </div>
